@@ -6,5 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.owner.mapproject.MapsActivity"
-    tools:layout="@layout/abc_action_bar_title_item" />
+    tools:layout="@layout/abc_action_bar_title_item"
+    tools:ignore="PrivateResource" />
 
