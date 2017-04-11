@@ -1,5 +1,6 @@
 package com.example.owner.mapproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -82,11 +83,11 @@ public class NavMain extends AppCompatActivity
         android.app.FragmentManager fragmentManager = getFragmentManager();
 
         if (id == R.id.nav_create_event) {
-            fragmentManager.beginTransaction().replace(R.id.content_nav_main,new Create_Event()).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame,new Create_Event()).commit();
         } else if (id == R.id.nav_my_events) {
-            fragmentManager.beginTransaction().replace(R.id.content_nav_main,new My_Events()).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame,new My_Events()).commit();
         } else if (id == R.id.nav_favs) {
-            fragmentManager.beginTransaction().replace(R.id.content_nav_main,new Favs()).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame,new Favs()).commit();
         }  else if (id == R.id.nav_send) {
 
         }
