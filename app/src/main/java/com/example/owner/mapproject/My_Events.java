@@ -14,7 +14,9 @@ import android.widget.ListView;
 
 public class My_Events extends Fragment{
     View myView;
+   
     ListView event_list;
+
     /*@Override
   public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
@@ -23,7 +25,9 @@ public class My_Events extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myView=inflater.inflate(R.layout.my_events,container,false);
+
         event_list= (ListView) myView.findViewById(R.id.listview_my_events);
+
         return myView;
     }
 

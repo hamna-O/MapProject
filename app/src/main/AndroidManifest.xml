@@ -47,9 +47,6 @@
         <activity
             android:name=".SearchPlace"
             android:label="Locations" />
-        <activity android:name=".CreateEvent">
-
-        </activity>
         <activity
             android:name=".NavMain"
             android:label="@string/title_activity_nav_main"
