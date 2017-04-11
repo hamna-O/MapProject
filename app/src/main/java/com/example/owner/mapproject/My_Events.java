@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 /**
  * Created by Khadeeja on 02-03-2017.
@@ -13,11 +14,17 @@ import android.view.ViewGroup;
 
 public class My_Events extends Fragment{
     View myView;
+  //  ListView event_list;
+    /*@Override
+  public void onActivityCreated(Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
 
-    @Nullable
+    }*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myView=inflater.inflate(R.layout.my_events,container,false);
         return myView;
+    //   event_list= (ListView) myView.findViewById(R.id.listview_my_events);
     }
+
 }
