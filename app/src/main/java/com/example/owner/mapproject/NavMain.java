@@ -14,8 +14,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.maps.MapFragment;
+
 public class NavMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    android.app.FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +28,13 @@ public class NavMain extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                fragmentManager.beginTransaction().replace(R.id.content_frame,new MapFragment()).commit();
             }
         });
 
@@ -40,6 +45,10 @@ public class NavMain extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame,new MapFragment()).commit();
+
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -80,9 +89,9 @@ public class NavMain extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        android.app.FragmentManager fragmentManager = getFragmentManager();
+        //android.app.FragmentManager fragmentManager = getFragmentManager();
 
-        if (id == R.id.nav_create_event) {
+        if (id == R.id.nav_create_event || id == -1) {
             fragmentManager.beginTransaction().replace(R.id.content_frame,new Create_Event()).commit();
         } else if (id == R.id.nav_my_events) {
             fragmentManager.beginTransaction().replace(R.id.content_frame,new My_Events()).commit();
