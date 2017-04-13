@@ -20,6 +20,7 @@ public class NavMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     android.app.FragmentManager fragmentManager;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +31,12 @@ public class NavMain extends AppCompatActivity
 
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 fragmentManager.beginTransaction().replace(R.id.content_frame,new MapsHomeFragment()).commit();
+                fab.hide();
             }
         });
 
@@ -48,6 +50,7 @@ public class NavMain extends AppCompatActivity
 
         fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame,new MapsHomeFragment()).commit();
+        fab.hide();
 
         navigationView.setNavigationItemSelectedListener(this);
     }
@@ -93,10 +96,13 @@ public class NavMain extends AppCompatActivity
 
         if (id == R.id.nav_create_event || id == -1) {
             fragmentManager.beginTransaction().replace(R.id.content_frame,new Create_Event()).commit();
+            fab.show();
         } else if (id == R.id.nav_my_events) {
             fragmentManager.beginTransaction().replace(R.id.content_frame,new My_Events()).commit();
+            fab.show();
         } else if (id == R.id.nav_favs) {
             fragmentManager.beginTransaction().replace(R.id.content_frame,new Favs()).commit();
+            fab.show();
         }  else if (id == R.id.nav_send) {
 
         }
