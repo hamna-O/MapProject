@@ -26,7 +26,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text|textMultiLine"
-                    android:id="@+id/editText2"
+                    android:id="@+id/e_title"
                     android:hint="write event title"
                     /></TableRow>
             <TableRow>
@@ -34,7 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="date"
-                    android:id="@+id/editText4"
+                    android:id="@+id/e_date"
                     android:hint="Add date"
                     /></TableRow>
             <TableRow>
@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="time"
-                    android:id="@+id/editText5"
+                    android:id="@+id/e_time"
                     android:hint="Add time"
                     /></TableRow>
             <TableRow>
@@ -50,7 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
-                    android:id="@+id/editText3"
+                    android:id="@+id/e_des"
                     android:hint="Add description"
                     android:layout_above="@+id/editText4"
                     /></TableRow>
@@ -59,7 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text|textPostalAddress"
-                    android:id="@+id/editText"
+                    android:id="@+id/e_venue"
                     android:hint="Add venue"
                     android:layout_above="@+id/editText3"
                     /></TableRow>
