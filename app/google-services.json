@@ -1,7 +1,9 @@
 {
   "project_info": {
     "project_number": "742960065729",
-    "project_id": "mymapsapp-152515"
+    "firebase_url": "https://mymapsapp-152515.firebaseio.com",
+    "project_id": "mymapsapp-152515",
+    "storage_bucket": "mymapsapp-152515.appspot.com"
   },
   "client": [
     {
@@ -13,11 +15,23 @@
       },
       "oauth_client": [
         {
+          "client_id": "742960065729-90cu6ovj1lomtan4c2ps3igthcgrurh8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.owner.mapproject",
+            "certificate_hash": "03e46d37447d79d7aa9ea2955895bffebb7a7e8f"
+          }
+        },
+        {
+          "client_id": "742960065729-puhvdht03p25vpvjv1flnpgphhl9k1gi.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
           "client_id": "742960065729-heqbeajhfco8j4v6l9djveh9c8l6q1ef.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.owner.mapproject",
-            "certificate_hash": "0EB13CD4C99EA91F6F099B4AE826AF3A9E7636F1"
+            "certificate_hash": "0eb13cd4c99ea91f6f099b4ae826af3a9e7636f1"
           }
         },
         {
@@ -27,6 +41,12 @@
       ],
       "api_key": [
         {
+          "current_key": "AIzaSyDNJu1tm7LiuQFhYVlZVizjQAcAY1kyxXg"
+        },
+        {
+          "current_key": "AIzaSyBllORwoPcqYGof5HPZe_q8gRCIyD1EDwk"
+        },
+        {
           "current_key": "AIzaSyAO4XnIztIsHpP9zju55BFL1T3nLb3jZ7Y"
         }
       ],
@@ -35,11 +55,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "742960065729-puhvdht03p25vpvjv1flnpgphhl9k1gi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -24,6 +25,13 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.text.BreakIterator;
 
@@ -33,6 +41,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
     private static final int RC_SIGN_IN = 1 ;
     private static final String TAG = "SignInActivity" ;
     private ProgressDialog mProgressDialog;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
     SignInButton signInButton;
     BreakIterator mStatusTextView;
     //Button b;
@@ -44,6 +54,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
         signInButton = (SignInButton)findViewById(R.id.sign_in_button);
         findViewById(R.id.sign_in_button).setOnClickListener(this);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
@@ -51,6 +62,19 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+        mAuth= FirebaseAuth.getInstance();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+            }
+        };
 
 
 //        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
@@ -86,6 +110,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
     @Override
     public void onStart() {
         super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
 //        mGoogleApiClient.connect();
@@ -130,11 +155,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
         Log.d(TAG, "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
-            GoogleSignInAccount acct = result.getSignInAccount();
-            Intent intent = new Intent(this,NavMain.class);
+            GoogleSignInAccount account = result.getSignInAccount();
+            firebaseAuthWithGoogle(account);
+           Intent intent = new Intent(this,NavMain.class);
             startActivity(intent);
             finish();
-
         } else {
             // Signed out, show unauthenticated UI.
         }
@@ -143,8 +168,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
     @Override
     public void onStop() {
         super.onStop();
-
+        if(mAuthListener!= null){
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
+
 
     @Override
     public void onClick(View v) {
@@ -169,6 +197,23 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
         }
+    }
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct){
+        Log.d(TAG,"firebaseAuthWithGoogle:" + acct.getId());
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+                        if(!task.isSuccessful()){
+                            Log.w(TAG,"signInWithCredential",task.getException());
+                            Toast.makeText(Login.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
+                        }
+                      //  hideProgressDialog();
+                    }
+                });
     }
 
     @Override
