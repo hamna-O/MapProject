@@ -34,7 +34,7 @@ public class NavMain extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentManager.beginTransaction().replace(R.id.content_frame,new MapFragment()).commit();
+                fragmentManager.beginTransaction().replace(R.id.content_frame,new MapsHomeFragment()).commit();
             }
         });
 
@@ -47,7 +47,7 @@ public class NavMain extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame,new MapFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.content_frame,new MapsHomeFragment()).commit();
 
         navigationView.setNavigationItemSelectedListener(this);
     }
