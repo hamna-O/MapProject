@@ -18,10 +18,14 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.HashMap;
+import java.util.Map;
 
+import static android.R.attr.author;
 import static android.app.Activity.RESULT_OK;
 
 /**
@@ -81,7 +85,7 @@ public class Create_Event extends Fragment{
            @Override
            public void onClick(View v) {
 
-               String Title=title.getText().toString().trim();
+              String Title=title.getText().toString().trim();
                String Date=date.getText().toString().trim();
                String Time=time.getText().toString().trim();
                String Des=des.getText().toString().trim();
@@ -91,7 +95,41 @@ public class Create_Event extends Fragment{
              //  ref.child("date").setValue(date.toString());
              //  ref.child("time").setValue()
 //               ref.child("venue").setValue(venue);
+              // @IgnoreExtraProperties
+          /*      class Event {
 
+                   public String Title;
+                   public String Date;
+                   public String Time;
+                   public String Des;
+                   public int starCount = 0;
+                   public Map<String, Boolean> stars = new HashMap<>();
+
+                   public Event() {
+                       // Default constructor required for calls to DataSnapshot.getValue(Post.class)
+                   }
+
+                   public Event(String title, String date, String time, String des) {
+                       this.Title = title;
+                       this.Date = date;
+                       this.Time = time;
+                       this.Des = des;
+                   }
+
+               //    @Exclude
+                   public Map<String, Object> toMap() {
+                       HashMap<String, Object> result = new HashMap<>();
+                       result.put("Title", title);
+                       result.put("Date", date);
+                       result.put("Time", time);
+                       result.put("Des", des);
+                       result.put("starCount", starCount);
+                       result.put("stars", stars);
+
+                       return result;
+                   }
+
+               }*/
 
            }
        });
@@ -113,5 +151,6 @@ public class Create_Event extends Fragment{
         }
 
     }
+
 }
 
