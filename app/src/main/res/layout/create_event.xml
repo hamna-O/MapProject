@@ -55,12 +55,13 @@
                     android:layout_above="@+id/editText4"
                     /></TableRow>
             <TableRow>
-                <EditText
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text|textPostalAddress"
                     android:id="@+id/e_venue"
-                    android:hint="Add venue"
+                    android:paddingLeft="4dp"
+                    android:text="Select Location"
+                    android:textSize="16dp"
                     android:layout_above="@+id/editText3"
                     /></TableRow>
             <TableRow>
