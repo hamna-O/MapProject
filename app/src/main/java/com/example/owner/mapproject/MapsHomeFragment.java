@@ -29,6 +29,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+
 public class MapsHomeFragment extends Fragment implements OnMapReadyCallback,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
 
@@ -61,6 +62,11 @@ public class MapsHomeFragment extends Fragment implements OnMapReadyCallback,Goo
                 .build();
         mGoogleApiClient.connect();
     }
+
+
+
+
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
