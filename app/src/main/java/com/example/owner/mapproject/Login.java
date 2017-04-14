@@ -38,7 +38,7 @@ import java.text.BreakIterator;
 import static com.example.owner.mapproject.R.id.sign_in_button;
 
 public class Login extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
-    private static final int RC_SIGN_IN = 1 ;
+    private static final int RC_SIGN_IN = 9001 ;
     private static final String TAG = "SignInActivity" ;
     private ProgressDialog mProgressDialog;
     private FirebaseAuth mAuth;
@@ -179,7 +179,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
         switch (v.getId()) {
             case R.id.sign_in_button:
                 signIn();
-                break;
         }
     }
 
