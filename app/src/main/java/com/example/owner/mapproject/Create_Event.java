@@ -74,11 +74,12 @@ public class Create_Event extends Fragment{
        b1.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-             //  Toast.makeText(getContext(),"hhgbs",Toast.LENGTH_LONG).show();
+               Toast.makeText(getActivity(),"hhgbs",Toast.LENGTH_LONG).show();
              //  Firebase Myref =new Firebase("https://mymapsapp-152515.firebaseio.com/");
                FirebaseDatabase database =FirebaseDatabase.getInstance();
                DatabaseReference ref =database.getReference("message");
                ref.setValue("data");
+
            }
        });
         return myView;
