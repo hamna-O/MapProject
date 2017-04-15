@@ -90,8 +90,9 @@ public class NavMain extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+       if (id == R.id.search_bar) {
+         //  return true;
+
         }
 
         return super.onOptionsItemSelected(item);
