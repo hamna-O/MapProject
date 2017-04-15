@@ -10,8 +10,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.owner.mapproject.Models.User;
+import com.example.owner.mapproject.retrofit.Map;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.auth.api.Auth;
@@ -32,9 +35,18 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.text.BreakIterator;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.example.owner.mapproject.R.id.map;
 import static com.example.owner.mapproject.R.id.sign_in_button;
 
 public class Login extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
@@ -43,6 +55,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
     private ProgressDialog mProgressDialog;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+
+    private Map map;
+    private CompositeDisposable mCompositeDisposable;
     SignInButton signInButton;
     BreakIterator mStatusTextView;
     //Button b;
@@ -57,6 +72,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
+
+        TextView textView = (TextView) signInButton.getChildAt(0);
+        textView.setTextSize(20);
+        textView.setText("Sign in with Google");
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
@@ -75,6 +94,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
                 }
             }
         };
+        mCompositeDisposable = new CompositeDisposable();
+
+        map = new Retrofit
+                .Builder()
+                .baseUrl("http://map.ssabeer.com/v1/")
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(Map.class);
 
 
 //        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
@@ -156,13 +184,46 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount account = result.getSignInAccount();
-            firebaseAuthWithGoogle(account);
-           Intent intent = new Intent(this,NavMain.class);
+          //  firebaseAuthWithGoogle(account);
+
+
+            try {
+                mCompositeDisposable.add(
+                        map.userReg(new User(account.getDisplayName(), account.getEmail()))
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribeOn(Schedulers.io())
+                                .subscribe(new Consumer<User>() {
+                                    @Override
+                                    public void accept(User user) throws Exception {
+                                        userss = user;
+                                        Log.d("Success", "Successfully completed.");
+                                    }
+                                }, new Consumer<Throwable>() {
+                                    @Override
+                                    public void accept(Throwable throwable) throws Exception {
+
+                                        Log.d("Error", throwable.getMessage());
+                                    }
+                                }));
+            } catch (Exception e) {
+                Log.d("Error", "Throws an error");
+            }
+            Intent intent = new Intent(this,NavMain.class);
             startActivity(intent);
             finish();
+
         } else {
-            // Signed out, show unauthenticated UI.
+
         }
+
+    }
+    private User userss;
+    private void handleResponse(User user) {
+        return;
+    }
+
+    private void handleError(Throwable error) {
+        return;
     }
 
     @Override

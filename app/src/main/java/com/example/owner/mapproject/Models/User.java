@@ -9,4 +9,9 @@ public class User {
     public  String email;
     public  String name;
 
+    public User(String name, String email) {
+        this.email = email;
+        this.name = name;
+        this._id = "";
+    }
 }

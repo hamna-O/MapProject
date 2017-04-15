@@ -39,20 +39,18 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBXMnhof4Lsic39DCm-hcFgo0t3-UHaEc8" />
 
-        <activity android:name=".Login">
-
-        </activity>
-        <activity
-            android:name=".SearchPlace"
-            android:label="Locations" />
-        <activity
-            android:name=".NavMain"
-            android:label="@string/title_activity_nav_main"
+        <activity android:name=".Login"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".NavMain"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar">
+
         </activity>
     </application>
 </manifest>
