@@ -18,7 +18,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/embed_places_icon"
         android:label=""
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -41,7 +41,7 @@
 
         <activity android:name=".Login"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
+            <intent-filter android:label="Whatsaround">
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
