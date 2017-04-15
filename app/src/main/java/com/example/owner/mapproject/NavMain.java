@@ -14,6 +14,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.ui.PlacePicker;
 
 
 public class NavMain extends AppCompatActivity
@@ -21,6 +24,7 @@ public class NavMain extends AppCompatActivity
 
     android.app.FragmentManager fragmentManager;
     FloatingActionButton fab;
+    private int PLACE_PICKER_REQUEST=999;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,12 @@ public class NavMain extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+
+
+
+
+
 
     @Override
     public void onBackPressed() {
