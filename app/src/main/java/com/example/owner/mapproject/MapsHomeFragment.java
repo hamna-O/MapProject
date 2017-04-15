@@ -55,7 +55,7 @@ public class MapsHomeFragment extends Fragment implements OnMapReadyCallback,Goo
         MapFragment fragment = (MapFragment)getChildFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
 
-        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+    /*    mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
             @Override
             public View getInfoWindow(Marker marker) {
                 LayoutInflater inflater = LayoutInflater.from(getActivity());
@@ -71,7 +71,7 @@ public class MapsHomeFragment extends Fragment implements OnMapReadyCallback,Goo
                 TextView tvLng = (TextView) v.findViewById(R.id.tv_lng);
 
                 tvLat.setText("Latitude:" + latLng.latitude);
-                tvLng.setText("Longitude:"+ latLng.longitude);*/
+                tvLng.setText("Longitude:"+ latLng.longitude);
                 return v;
 
             }
@@ -100,7 +100,7 @@ public class MapsHomeFragment extends Fragment implements OnMapReadyCallback,Goo
                 // Returning the view containing InfoWindow contents
                 return v;
             }
-        });
+        });*/
 
     }
     protected synchronized void buildGoogleApiClient() {
@@ -231,9 +231,9 @@ public class MapsHomeFragment extends Fragment implements OnMapReadyCallback,Goo
         }
     }
 
-public  void passLocation(LatLng latlong){
+    public  void passLocation(LatLng latlong){
 
-}
+    }
 
 
     @Override
@@ -251,7 +251,7 @@ public  void passLocation(LatLng latlong){
             markerOptions.title("Current Position");
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
             mCurrLocationMarker = mMap.addMarker(markerOptions);
-            mCurrLocationMarker.showInfoWindow();
+            //mCurrLocationMarker.showInfoWindow();
 
             //move map camera
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
