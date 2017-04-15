@@ -40,7 +40,7 @@ public class MapsHomeFragment extends Fragment implements OnMapReadyCallback,Goo
     GoogleApiClient mGoogleApiClient;
     LocationRequest mLocationRequest;
     Location mLastLocation;
-    Marker mCurrLocationMarker;
+    Marker mCurrLocationMarker = null;
 
     @Nullable
     @Override
@@ -233,6 +233,18 @@ public class MapsHomeFragment extends Fragment implements OnMapReadyCallback,Goo
 
     public  void passLocation(LatLng latlong){
 
+        if (mCurrLocationMarker != null) {
+            mCurrLocationMarker.remove();
+        }
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latlong);
+        markerOptions.title("Searched Position");
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+        mCurrLocationMarker = mMap.addMarker(markerOptions);
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latlong));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
     }
 
 
