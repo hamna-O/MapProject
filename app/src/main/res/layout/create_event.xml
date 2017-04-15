@@ -10,7 +10,7 @@
     android:orientation="vertical">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_height="match_parent"
             android:layout_width="match_parent"
@@ -23,21 +23,34 @@
                     style="@android:style/Widget.DeviceDefault.Button.Borderless"
                     android:layout_marginLeft="250dp"
                      />
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="350dp"
+                    android:layout_height="200dp"
                     android:id="@+id/imageView2"
-                    android:background="@drawable/images"
-                    android:contentDescription="@string/store_picture_title"
+                    android:background="@drawable/bg"
+                    android:scaleType="fitXY"
+                    android:padding="4dp"
                     />
-
-
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:text="Add Image"
+                android:textSize="30dp"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless"
+                android:textColor="#000000"
+                />
+            </FrameLayout>
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text|textMultiLine"
                     android:id="@+id/e_title"
-                    android:hint="write event title"
+                    android:hint="Event Title"
+                    android:paddingTop="20dp"
                     />
 
                 <EditText
@@ -45,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="date"
                     android:id="@+id/e_date"
-                    android:hint="Add date"
+                    android:hint="Add Date"
                     />
 
                 <EditText
@@ -53,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="time"
                     android:id="@+id/e_time"
-                    android:hint="Add time"
+                    android:hint="Add Time"
                     />
 
                 <EditText
@@ -61,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
                     android:id="@+id/e_des"
-                    android:hint="Add description"
+                    android:hint="Add Description"
                     android:layout_above="@+id/editText4"
                     />
 
@@ -69,9 +82,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/e_venue"
-                    android:paddingLeft="4dp"
-                    android:text="Select Location"
-                    android:textSize="16dp"
+                    android:text="SELECT LOCATION"
+                    android:textSize="18dp"
+                    android:paddingLeft="2dp"
+                    android:padding="2dp"
+                    android:textColor="#009688"
                     android:layout_above="@+id/editText3"
                     />
         </LinearLayout>

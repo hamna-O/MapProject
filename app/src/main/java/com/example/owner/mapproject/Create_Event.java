@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -45,14 +46,13 @@ public class Create_Event extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         database =FirebaseDatabase.getInstance().getReference();
-
+        setHasOptionsMenu(true);
        // database.child(userid);
-
-
     }
 
-    @Nullable
 
+
+    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myView=inflater.inflate(R.layout.create_event,container,false);
@@ -135,6 +135,7 @@ public class Create_Event extends Fragment{
        });
         return myView;
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -152,5 +153,13 @@ public class Create_Event extends Fragment{
 
     }
 
+    /*public void onCreateOptionsMenu(
+            Menu menu,MenuInflator inflator){
+        inflator.inflate(R.menu.activity_nav_main_drawer, menu);
+
+    }*/
+
+
 }
+
 
