@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -57,6 +58,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
+
+        TextView textView = (TextView) signInButton.getChildAt(0);
+        textView.setTextSize(20);
+        textView.setText("Sign in with Google");
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
@@ -161,7 +166,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
             startActivity(intent);
             finish();
         } else {
-            // Signed out, show unauthenticated UI.
+            Intent intent = new Intent(this,NavMain.class);
+            startActivity(intent);
+            finish();
         }
     }
 
