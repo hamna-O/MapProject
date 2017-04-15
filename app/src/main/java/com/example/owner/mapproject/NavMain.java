@@ -118,8 +118,11 @@ public class NavMain extends AppCompatActivity
 
         if (resultCode == RESULT_OK) {
             place = PlacePicker.getPlace(this, data);
+            if(mapFragment!=null) {
+                ((MapsHomeFragment)mapFragment).passLocation(place.getLatLng());
+            }
         }
-        Activity current = this;
+
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
