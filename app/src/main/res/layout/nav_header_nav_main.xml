@@ -11,7 +11,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
-    @drawable/side_nav_bar
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
