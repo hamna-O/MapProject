@@ -1,5 +1,7 @@
 package com.example.owner.mapproject;
 
+import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +18,7 @@ import android.view.MenuItem;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
 
@@ -25,6 +28,8 @@ public class NavMain extends AppCompatActivity
     android.app.FragmentManager fragmentManager;
     FloatingActionButton fab;
     private int PLACE_PICKER_REQUEST=999;
+    public Place place;
+    Fragment mapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +39,12 @@ public class NavMain extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-
+        mapFragment = new MapsHomeFragment();
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentManager.beginTransaction().replace(R.id.content_frame,new MapsHomeFragment()).commit();
+                fragmentManager.beginTransaction().replace(R.id.content_frame,mapFragment).commit();
                 fab.hide();
             }
         });
@@ -53,7 +58,7 @@ public class NavMain extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame,new MapsHomeFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.content_frame,mapFragment).commit();
         fab.hide();
 
         navigationView.setNavigationItemSelectedListener(this);
@@ -91,11 +96,30 @@ public class NavMain extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
        if (id == R.id.search_bar) {
-         //  return true;
+           PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+           try {
+               startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST); // for activty
+               //startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST); // for fragment
+           } catch (GooglePlayServicesRepairableException e) {
+               e.printStackTrace();
+           } catch (GooglePlayServicesNotAvailableException e) {
+               e.printStackTrace();
+           }
+
 
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //checkPermissionOnActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            place = PlacePicker.getPlace(this, data);
+        }
+        Activity current = this;
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

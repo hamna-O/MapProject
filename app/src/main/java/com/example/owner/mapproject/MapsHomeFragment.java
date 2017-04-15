@@ -1,5 +1,6 @@
 package com.example.owner.mapproject;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.Manifest;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -47,11 +49,58 @@ public class MapsHomeFragment extends Fragment implements OnMapReadyCallback,Goo
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         MapFragment fragment = (MapFragment)getChildFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
+
+        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+            @Override
+            public View getInfoWindow(Marker marker) {
+                LayoutInflater inflater = LayoutInflater.from(getActivity());
+
+                View v = null;
+                //LatLng latLng = marker.getPosition();
+
+                if (marker.equals(mCurrLocationMarker)) {
+                    v = inflater.inflate(R.layout.markerwindowlayout, null);
+                }
+
+                /*TextView tvLat = (TextView) v.findViewById(R.id.tv_lat);
+                TextView tvLng = (TextView) v.findViewById(R.id.tv_lng);
+
+                tvLat.setText("Latitude:" + latLng.latitude);
+                tvLng.setText("Longitude:"+ latLng.longitude);*/
+                return v;
+
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                LayoutInflater inflater = LayoutInflater.from(getActivity());
+
+                View v = inflater.inflate(R.layout.markerwindowlayout, null);
+
+                // Getting the position from the marker
+                LatLng latLng = marker.getPosition();
+
+                // Getting reference to the TextView to set latitude
+                TextView tvLat = (TextView) v.findViewById(R.id.tv_lat);
+
+                // Getting reference to the TextView to set longitude
+                TextView tvLng = (TextView) v.findViewById(R.id.tv_lng);
+
+                // Setting the latitude
+                tvLat.setText("Latitude:" + latLng.latitude);
+
+                // Setting the longitude
+                tvLng.setText("Longitude:"+ latLng.longitude);
+
+                // Returning the view containing InfoWindow contents
+                return v;
+            }
+        });
 
     }
     protected synchronized void buildGoogleApiClient() {
@@ -182,7 +231,9 @@ public class MapsHomeFragment extends Fragment implements OnMapReadyCallback,Goo
         }
     }
 
+public  void passLocation(LatLng latlong){
 
+}
 
 
     @Override
@@ -200,6 +251,7 @@ public class MapsHomeFragment extends Fragment implements OnMapReadyCallback,Goo
             markerOptions.title("Current Position");
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
             mCurrLocationMarker = mMap.addMarker(markerOptions);
+            mCurrLocationMarker.showInfoWindow();
 
             //move map camera
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
