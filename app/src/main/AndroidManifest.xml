@@ -21,7 +21,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label=""
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        >
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -54,5 +55,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
