@@ -47,9 +47,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SearchPlace"
-            android:label="Locations" />
-        <activity
             android:name=".NavMain"
             android:label=""
             android:theme="@style/AppTheme.NoActionBar">

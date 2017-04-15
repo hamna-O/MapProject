@@ -16,7 +16,7 @@ import retrofit2.http.Path;
 
 public interface Map {
     @POST("/user")
-    Observable<User> UserReg(
+    Observable<User> userReg(
             @Body User detail
             );
 
