@@ -39,13 +39,13 @@ public class Create_Event extends Fragment{
     EditText title, date, time, des;
     TextView venue;
     private int PLACE_PICKER_REQUEST=999;
-    private DatabaseReference database;
+  //  private DatabaseReference database;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        database =FirebaseDatabase.getInstance().getReference();
+      //  database =FirebaseDatabase.getInstance().getReference();
         setHasOptionsMenu(true);
        // database.child(userid);
     }
@@ -85,12 +85,11 @@ public class Create_Event extends Fragment{
            @Override
            public void onClick(View v) {
 
-              String Title=title.getText().toString().trim();
+               String Title=title.getText().toString().trim();
                String Date=date.getText().toString().trim();
                String Time=time.getText().toString().trim();
                String Des=des.getText().toString().trim();
-               database.child("Event Title").setValue(Title);
-               database.child("Description").setValue(Des);
+
 
              //  ref.child("date").setValue(date.toString());
              //  ref.child("time").setValue()
@@ -146,9 +145,9 @@ public class Create_Event extends Fragment{
                     String placeName = String.format("%s", place.getName());
             venue.setText(placeName);
 
-
-                    //String latitude = place.getLatLng().latitude;
-                    //var longitude = place.getLatLng().longitude;
+                    CharSequence place_name=place.getName();
+                    double latitude = place.getLatLng().latitude;
+                    double longitude = place.getLatLng().longitude;
         }
 
     }

@@ -225,7 +225,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
     private void handleError(Throwable error) {
         return;
     }
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mCompositeDisposable.clear();
+    }
     @Override
     public void onStop() {
         super.onStop();
