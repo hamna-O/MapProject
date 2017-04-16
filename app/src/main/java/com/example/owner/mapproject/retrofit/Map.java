@@ -1,5 +1,6 @@
 package com.example.owner.mapproject.retrofit;
 
+import com.example.owner.mapproject.Models.Event_model;
 import com.example.owner.mapproject.Models.User;
 
 import org.w3c.dom.UserDataHandler;
@@ -15,9 +16,13 @@ import retrofit2.http.Path;
  */
 
 public interface Map {
-    @POST("/user")
+    @POST("user/")
     Observable<User> userReg(
             @Body User detail
             );
+    @POST("events/")
+    Observable<Boolean> addEvent(
+            @Body Event_model event
+    );
 
 }
