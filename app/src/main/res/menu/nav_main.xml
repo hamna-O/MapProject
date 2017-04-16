@@ -4,9 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <item android:id="@+id/search_bar"
     android:icon="@drawable/search_white_24x24"
-    app:showAsAction="always"
     android:actionViewClass="android.support.v7.widget.SearchView"
-    android:title="">
+    android:title="Place"
+    app:showAsAction="always|withText">
 </item>
 
 

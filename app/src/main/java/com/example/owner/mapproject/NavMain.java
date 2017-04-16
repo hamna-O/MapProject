@@ -30,6 +30,8 @@ public class NavMain extends AppCompatActivity
     private int PLACE_PICKER_REQUEST=999;
     public Place place;
     Fragment mapFragment;
+    int selected;
+    Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +86,7 @@ public class NavMain extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.nav_main, menu);
+        this.menu = menu;
         return true;
     }
 
@@ -93,6 +96,7 @@ public class NavMain extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        selected = id;
 
         //noinspection SimplifiableIfStatement
        if (id == R.id.search_bar) {
@@ -120,6 +124,8 @@ public class NavMain extends AppCompatActivity
             place = PlacePicker.getPlace(this, data);
             if(mapFragment!=null) {
                 ((MapsHomeFragment)mapFragment).passLocation(place.getLatLng());
+                MenuItem item = menu.findItem(selected);
+                item.setTitle(place.getName());
             }
         }
 
@@ -130,6 +136,7 @@ public class NavMain extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
         //android.app.FragmentManager fragmentManager = getFragmentManager();
 
         if (id == R.id.nav_create_event || id == -1) {
