@@ -141,6 +141,7 @@ public class NavMain extends AppCompatActivity
 
         if (id == R.id.nav_create_event || id == -1) {
             fragmentManager.beginTransaction().replace(R.id.content_frame,new Create_Event()).commit();
+            //this.getActionBar().setTitle("Create Event");
             fab.show();
         } else if (id == R.id.nav_my_events) {
             fragmentManager.beginTransaction().replace(R.id.content_frame,new My_Events()).commit();
