@@ -1,5 +1,6 @@
 package com.example.owner.mapproject;
 
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
@@ -23,19 +25,18 @@ import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 import static android.R.attr.author;
 import static android.app.Activity.RESULT_OK;
 
-/**
- * Created by Khadeeja on 02-03-2017.
- */
+
 
 public class Create_Event extends Fragment{
     View myView;
-    Button b1;
+    Button b1,d1,t1;
     EditText title, date, time, des;
     TextView venue;
     private int PLACE_PICKER_REQUEST=999;
@@ -58,12 +59,12 @@ public class Create_Event extends Fragment{
         myView=inflater.inflate(R.layout.create_event,container,false);
         b1= (Button) myView.findViewById(R.id.button);
         title= (EditText) myView.findViewById(R.id.e_title);
-        date= (EditText) myView.findViewById(R.id.e_date);
-        time= (EditText) myView.findViewById(R.id.e_time);
+       // date= (EditText) myView.findViewById(R.id.e_date);
+       // time= (EditText) myView.findViewById(R.id.e_time);
         venue= (TextView) myView.findViewById(R.id.e_venue);
         des= (EditText) myView.findViewById(R.id.e_des);
-
-
+        d1=(Button)myView.findViewById(R.id.d1);
+        t1=(Button)myView.findViewById(R.id.t1);
 
 
         venue.setOnClickListener(new View.OnClickListener() {
@@ -133,6 +134,24 @@ public class Create_Event extends Fragment{
 
            }
        });
+
+      d1.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            //  public void showDatePickerDialog(View v) {
+                  DialogFragment newFragment = new DatePickerFragment();
+                  newFragment.show(getFragmentManager(),"datePicker");
+             // }
+          }
+      });
+        t1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment newFragment  = new TimePickerFragment();
+               // TimePickerFragment newFragment = new    TimePickerFragment();
+                newFragment.show(getFragmentManager(),"timePicker");
+            }
+        });
         return myView;
     }
 
