@@ -46,8 +46,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static android.R.attr.author;
 import static android.app.Activity.RESULT_OK;
 
+import static com.example.owner.mapproject.R.id.d1;
 import static com.example.owner.mapproject.R.id.map;
-
+import static com.example.owner.mapproject.R.id.t1;
 
 
 public class Create_Event extends Fragment{
@@ -133,8 +134,8 @@ public class Create_Event extends Fragment{
             public void onClick(View v) {
 
                 String Title=title.getText().toString().trim();
-              String Date=date.getText().toString().trim();
-              String Time=time.getText().toString().trim();
+             String Date= d1.getText().toString();
+                String Time = t1.getText().toString();
                 String Des=des.getText().toString().trim();
                 SharedPreferences sp = getActivity().getSharedPreferences("S_PIN_STORE", Context.MODE_PRIVATE);
                 String id = sp.getString("ID", "");
