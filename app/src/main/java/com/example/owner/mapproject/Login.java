@@ -1,7 +1,9 @@
 package com.example.owner.mapproject;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -62,12 +64,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
     BreakIterator mStatusTextView;
     //Button b;
     GoogleApiClient mGoogleApiClient;
+    SharedPreferences sharedpreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         signInButton = (SignInButton)findViewById(R.id.sign_in_button);
         findViewById(R.id.sign_in_button).setOnClickListener(this);
+
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -197,6 +202,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
                                     public void accept(User user) throws Exception {
                                         userss = user;
                                         Log.d("Success", "Successfully completed.");
+                                        SharedPreferences sx = getSharedPreferences("S_PIN_STORE", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor ed = sx.edit();
+                                        ed.putString("ID",userss._id);
+                                        ed.apply();
                                     }
                                 }, new Consumer<Throwable>() {
                                     @Override
@@ -205,9 +214,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
                                         Log.d("Error", throwable.getMessage());
                                     }
                                 }));
+
             } catch (Exception e) {
                 Log.d("Error", "Throws an error");
             }
+
             Intent intent = new Intent(this,NavMain.class);
             startActivity(intent);
             finish();
@@ -217,6 +228,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
         }
 
     }
+
+    private String user;
     private User userss;
     private void handleResponse(User user) {
         return;
@@ -225,7 +238,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
     private void handleError(Throwable error) {
         return;
     }
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mCompositeDisposable.clear();
+    }
     @Override
     public void onStop() {
         super.onStop();
