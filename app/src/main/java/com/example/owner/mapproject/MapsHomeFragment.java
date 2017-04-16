@@ -55,7 +55,28 @@ public class MapsHomeFragment extends Fragment implements OnMapReadyCallback,Goo
         MapFragment fragment = (MapFragment)getChildFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
 
-    /*    mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+    }
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this.getActivity())
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        mGoogleApiClient.connect();
+    }
+
+
+
+
+
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+
+        mMap = googleMap;
+
+        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
             @Override
             public View getInfoWindow(Marker marker) {
                 LayoutInflater inflater = LayoutInflater.from(getActivity());
@@ -67,11 +88,11 @@ public class MapsHomeFragment extends Fragment implements OnMapReadyCallback,Goo
                     v = inflater.inflate(R.layout.markerwindowlayout, null);
                 }
 
-                /*TextView tvLat = (TextView) v.findViewById(R.id.tv_lat);
+                TextView tvLat = (TextView) v.findViewById(R.id.tv_lat);
                 TextView tvLng = (TextView) v.findViewById(R.id.tv_lng);
 
-                tvLat.setText("Latitude:" + latLng.latitude);
-                tvLng.setText("Longitude:"+ latLng.longitude);
+                tvLat.setText("Latitude:22");
+                tvLng.setText("Longitude:44");
                 return v;
 
             }
@@ -100,28 +121,8 @@ public class MapsHomeFragment extends Fragment implements OnMapReadyCallback,Goo
                 // Returning the view containing InfoWindow contents
                 return v;
             }
-        });*/
+        });
 
-    }
-    protected synchronized void buildGoogleApiClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(this.getActivity())
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-        mGoogleApiClient.connect();
-    }
-
-
-
-
-
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-
-
-        mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         //Initialize Google Play Services
