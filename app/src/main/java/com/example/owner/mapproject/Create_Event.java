@@ -121,11 +121,13 @@ public class Create_Event extends Fragment{
           }
       });
         t1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment newFragment  = new TimePickerFragment();
-               // TimePickerFragment newFragment = new    TimePickerFragment();
-                newFragment.show(getFragmentManager(),"timePicker");
+                                  @Override
+                                  public void onClick(View v) {
+                                      DialogFragment newFragment = new TimePickerFragment();
+                                      // TimePickerFragment newFragment = new    TimePickerFragment();
+                                      newFragment.show(getFragmentManager(), "timePicker");
+                                  }
+                              });
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
