@@ -134,8 +134,9 @@ public class Create_Event extends Fragment{
             public void onClick(View v) {
 
                 String Title=title.getText().toString().trim();
-             String Date= d1.getText().toString();
-                String Time = t1.getText().toString();
+                 String Date=d1.getText().toString().trim();
+              String Time=t1.getText().toString().trim();
+
                 String Des=des.getText().toString().trim();
                 SharedPreferences sp = getActivity().getSharedPreferences("S_PIN_STORE", Context.MODE_PRIVATE);
                 String id = sp.getString("ID", "");
