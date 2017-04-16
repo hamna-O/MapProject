@@ -1,5 +1,8 @@
 package com.example.owner.mapproject;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,8 +16,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+
+
 public class NavMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    android.app.FragmentManager fragmentManager;
+    FloatingActionButton fab;
+    private int PLACE_PICKER_REQUEST=999;
+    public Place place;
+    Fragment mapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +38,14 @@ public class NavMain extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        mapFragment = new MapsHomeFragment();
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                fragmentManager.beginTransaction().replace(R.id.content_frame,mapFragment).commit();
+                fab.hide();
             }
         });
 
@@ -39,8 +56,19 @@ public class NavMain extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame,mapFragment).commit();
+        fab.hide();
+
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+
+
+
+
+
 
     @Override
     public void onBackPressed() {
@@ -67,11 +95,34 @@ public class NavMain extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+       if (id == R.id.search_bar) {
+           PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+           try {
+               startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST); // for activty
+               //startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST); // for fragment
+           } catch (GooglePlayServicesRepairableException e) {
+               e.printStackTrace();
+           } catch (GooglePlayServicesNotAvailableException e) {
+               e.printStackTrace();
+           }
+
+
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //checkPermissionOnActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            place = PlacePicker.getPlace(this, data);
+            if(mapFragment!=null) {
+                ((MapsHomeFragment)mapFragment).passLocation(place.getLatLng());
+            }
+        }
+
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -79,14 +130,17 @@ public class NavMain extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        android.app.FragmentManager fragmentManager = getFragmentManager();
+        //android.app.FragmentManager fragmentManager = getFragmentManager();
 
-        if (id == R.id.nav_create_event) {
-            fragmentManager.beginTransaction().replace(R.id.content_nav_main,new Create_Event()).commit();
+        if (id == R.id.nav_create_event || id == -1) {
+            fragmentManager.beginTransaction().replace(R.id.content_frame,new Create_Event()).commit();
+            fab.show();
         } else if (id == R.id.nav_my_events) {
-            fragmentManager.beginTransaction().replace(R.id.content_nav_main,new My_Events()).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame,new My_Events()).commit();
+            fab.show();
         } else if (id == R.id.nav_favs) {
-            fragmentManager.beginTransaction().replace(R.id.content_nav_main,new Favs()).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame,new Favs()).commit();
+            fab.show();
         }  else if (id == R.id.nav_send) {
 
         }

@@ -1,85 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="10dp">
+    <!-- android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" -->
 
-    <EditText
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="time"
-        android:ems="10"
-        android:id="@+id/editText5"
-        android:hint="Add time"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="40dp" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:id="@+id/editText4"
-        android:hint="Add date"
-        android:layout_above="@+id/editText5"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:id="@+id/editText3"
-        android:hint="Add description"
-        android:layout_above="@+id/editText4"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text|textPostalAddress"
-        android:ems="10"
-        android:id="@+id/editText"
-        android:hint="Add venue"
-        android:layout_above="@+id/editText3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text|textMultiLine"
-        android:ems="10"
-        android:id="@+id/editText2"
-        android:hint="write event title"
-        android:textColorLink="@drawable/side_nav_bar"
-        android:layout_above="@+id/editText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
-        android:background="@drawable/images"
-        android:contentDescription="@string/store_picture_title"
-        android:layout_above="@+id/editText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="72dp" />
-
-    <Button
-        android:text="Submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:elevation="0dp"
-        android:visibility="visible"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-</RelativeLayout>
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:orientation="vertical">
+                <Button
+                    android:text="Submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/button"
+                    style="@android:style/Widget.DeviceDefault.Button.Borderless"
+                    android:layout_gravity="end"
+                     />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="200dp"
+                    android:id="@+id/imageView2"
+                    android:background="@drawable/bg"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="2dp"
+                    />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:text="Add Image"
+                android:textSize="30dp"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless"
+                android:textColor="#000000"
+                />
+            </FrameLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/In_eve"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Color">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="8dp"
+                    android:inputType="text|textMultiLine"
+                    android:id="@+id/e_title"
+                    android:hint="Event Title"
+                    android:layout_marginLeft="10dp"
+                    />
+            </android.support.design.widget.TextInputLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pick Date"
+                    android:onClick="showDatePickerDialog"
+                    android:layout_gravity="left"
+                    android:id="@+id/d1"
+                    android:layout_marginLeft="45dp"
+                    android:background="#edf2f1" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select Time"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="85dp"
+                    android:id="@+id/t1"
+                    android:background="#edf2f1" />
+            </FrameLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/In_Des"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Color">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:id="@+id/e_des"
+                    android:hint="Event Description"
+                    android:layout_marginLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="8dp"
+                    />
+            </android.support.design.widget.TextInputLayout>
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                        android:text="Event Type : "
+                        android:layout_marginLeft="12dp"/>
+            <android.support.v7.widget.AppCompatRadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PRIVATE"
+                android:id="@+id/pr"
+                />
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:text="PUBLIC"
+                    android:id="@+id/pb"
+                    />
+                </RadioGroup>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/e_venue"
+                    android:text="SELECT LOCATION"
+                    android:textSize="18dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#009688"
+                    android:layout_above="@+id/editText3"
+                    />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
