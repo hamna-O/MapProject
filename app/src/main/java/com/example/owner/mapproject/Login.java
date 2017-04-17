@@ -220,6 +220,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
             }
 
             Intent intent = new Intent(this,NavMain.class);
+           intent.putExtra("Uname",account.getDisplayName());
+            intent.putExtra("Umail",account.getEmail());
             startActivity(intent);
             finish();
 
@@ -297,4 +299,5 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
 }
