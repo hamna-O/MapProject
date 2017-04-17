@@ -29,7 +29,7 @@ public class My_Events extends Fragment{
     ArrayAdapter<String> adapter;
     DatabaseReference database;
     FirebaseHelper helper;
-
+    Fragment newFragment;
 
 
     @Override
@@ -58,18 +58,7 @@ public class My_Events extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-
-                Fragment newFragment = new EventDetails();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-// Replace whatever is in the fragment_container view with this fragment,
-// and add the transaction to the back stack
-                transaction.replace(R.id.content_frame, newFragment);
-                transaction.addToBackStack(null);
-
-// Commit the transaction
-                transaction.commit();
-
+                ((NavMain)getActivity()).EventDetailLoad();
             }
         });
 
