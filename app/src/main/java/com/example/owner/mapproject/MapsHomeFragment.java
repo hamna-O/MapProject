@@ -41,6 +41,8 @@ public class MapsHomeFragment extends Fragment implements OnMapReadyCallback,Goo
     LocationRequest mLocationRequest;
     Location mLastLocation;
     Marker mCurrLocationMarker = null;
+    Marker eventMarker = null;
+    MarkerOptions markerOptions = new MarkerOptions();
 
     @Nullable
     @Override
@@ -76,23 +78,37 @@ public class MapsHomeFragment extends Fragment implements OnMapReadyCallback,Goo
 
         mMap = googleMap;
 
+        /*LatLng temp = new LatLng(10.8423,76.0305);
+        MarkerOptions tempOptions = new MarkerOptions();
+
+        tempOptions.position(temp);
+        tempOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+        eventMarker = mMap.addMarker(tempOptions);*/
+
+
         mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
             @Override
             public View getInfoWindow(Marker marker) {
                 LayoutInflater inflater = LayoutInflater.from(getActivity());
 
                 View v = null;
-                //LatLng latLng = marker.getPosition();
-
-                if (marker.equals(mCurrLocationMarker)) {
-                    v = inflater.inflate(R.layout.markerwindowlayout, null);
-                }
-
                 TextView tvLat = (TextView) v.findViewById(R.id.tv_lat);
                 TextView tvLng = (TextView) v.findViewById(R.id.tv_lng);
+                //LatLng latLng = marker.getPosition();
 
-                tvLat.setText("Latitude:22");
-                tvLng.setText("Longitude:44");
+                if (marker.equals(mCurrLocationMarker) != true) {
+                    v = inflater.inflate(R.layout.markerwindowlayout, null);
+                    tvLat.setText("Festival");
+                    tvLng.setText("11 am");
+                }
+                else {
+                    mCurrLocationMarker = mMap.addMarker(markerOptions.title("Queried Position"));
+                    mMap.setInfoWindowAdapter(null);
+                }
+
+
+
+
                 return v;
 
             }
@@ -241,7 +257,7 @@ public class MapsHomeFragment extends Fragment implements OnMapReadyCallback,Goo
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latlong);
         markerOptions.title("Searched Position");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
         mCurrLocationMarker = mMap.addMarker(markerOptions);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latlong));
@@ -259,10 +275,9 @@ public class MapsHomeFragment extends Fragment implements OnMapReadyCallback,Goo
 
             //Place current location marker
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-            MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(latLng);
             markerOptions.title("Current Position");
-            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
             mCurrLocationMarker = mMap.addMarker(markerOptions);
             //mCurrLocationMarker.showInfoWindow();
 
