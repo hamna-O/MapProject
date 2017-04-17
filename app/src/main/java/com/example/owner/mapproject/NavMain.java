@@ -167,10 +167,10 @@ public class NavMain extends AppCompatActivity
         } else if (id == R.id.nav_favs) {
             fragmentManager.beginTransaction().replace(R.id.content_frame,new Favs()).commit();
             fab.show();
-        }  else if (id == R.id.nav_logout) {
+        }  /*else if (id == R.id.nav_logout) {
 
 
-        }
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

@@ -17,7 +17,7 @@
 
     </group>
 
-    <item android:title="Other Options">
+  <!--  <item android:title="Other Options">
         <menu>
             <item
                 android:id="@+id/nav_logout"
@@ -25,6 +25,6 @@
                 android:title="Logout"/>
 
         </menu>
-    </item>
+    </item> -->
 
 </menu>
