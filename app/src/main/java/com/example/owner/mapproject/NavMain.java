@@ -167,7 +167,9 @@ public class NavMain extends AppCompatActivity
         } else if (id == R.id.nav_favs) {
             fragmentManager.beginTransaction().replace(R.id.content_frame,new Favs()).commit();
             fab.show();
+
         }  /*else if (id == R.id.nav_logout) {
+
 
 
         }*/

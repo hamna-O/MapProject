@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.usage.UsageEvents;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -58,7 +60,9 @@ public class My_Events extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                ((NavMain)getActivity()).EventDetailLoad();
+                Toast.makeText(getActivity(),"Pos :"+position,Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), EventDetail.class);
+                startActivity(intent);
             }
         });
 
