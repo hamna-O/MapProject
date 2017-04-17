@@ -41,9 +41,6 @@
 
         <activity
             android:name=".Login"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
-        <activity android:name=".Login"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter android:label="WhatsAround">
                 <action android:name="android.intent.action.MAIN" />
