@@ -23,6 +23,7 @@
                     android:id="@+id/button"
                     style="@android:style/Widget.DeviceDefault.Button.Borderless"
                     android:layout_gravity="end"
+                    android:textColor="@color/colorPrimaryDark"
                      />
             <FrameLayout
                 android:layout_width="match_parent"
@@ -30,9 +31,9 @@
                 <ImageView
                     android:layout_width="fill_parent"
                     android:layout_height="200dp"
-                    android:id="@+id/imageView2"
+                    android:id="@+id/event_image"
                     android:background="@drawable/bg"
-                    android:scaleType="fitXY"
+                    android:scaleType="fitCenter"
                     android:layout_marginLeft="2dp"
                     />
             <Button
@@ -41,6 +42,7 @@
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:text="Add Image"
                 android:textSize="30dp"
+                android:id="@+id/add_image"
                 style="@android:style/Widget.DeviceDefault.Button.Borderless"
                 android:textColor="#000000"
                 />
