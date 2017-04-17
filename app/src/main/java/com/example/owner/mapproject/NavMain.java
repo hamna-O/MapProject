@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -33,10 +34,23 @@ public class NavMain extends AppCompatActivity
     int selected;
     Menu menu;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        String Username = intent.getStringExtra("Uname");
+        String Usermail = intent.getStringExtra("Umail");
         setContentView(R.layout.activity_nav_main);
+
+        NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
+        View hView =  navView.getHeaderView(0);
+        TextView name = (TextView)hView.findViewById(R.id.nav_name);
+        name.setText(Username);
+        TextView mail = (TextView)hView.findViewById(R.id.nav_mail);
+        mail.setText(Usermail);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -52,6 +66,8 @@ public class NavMain extends AppCompatActivity
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        name.setText(Username);
+        mail.setText(Usermail);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -149,7 +165,8 @@ public class NavMain extends AppCompatActivity
         } else if (id == R.id.nav_favs) {
             fragmentManager.beginTransaction().replace(R.id.content_frame,new Favs()).commit();
             fab.show();
-        }  else if (id == R.id.nav_send) {
+        }  else if (id == R.id.nav_logout) {
+
 
         }
 
@@ -157,4 +174,5 @@ public class NavMain extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
