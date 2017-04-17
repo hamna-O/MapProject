@@ -49,12 +49,13 @@ import static android.app.Activity.RESULT_OK;
 import static com.example.owner.mapproject.R.id.d1;
 import static com.example.owner.mapproject.R.id.map;
 import static com.example.owner.mapproject.R.id.t1;
+import static com.example.owner.mapproject.R.id.title;
 
 
 public class Create_Event extends Fragment{
     View myView;
     Button b1,d1,t1;
-    EditText title, date, time, des;
+    EditText title, des;
     TextView venue;
     private com.example.owner.mapproject.retrofit.Map map;
     private CompositeDisposable mCompositeDisposable;
@@ -150,7 +151,11 @@ public class Create_Event extends Fragment{
                                     public void accept(Boolean user) throws Exception {
                                         userss = user;
                                         Log.d("Success", "Successfully completed.");
-
+                                        title.setText("");
+                                        des.setText("");
+                                        d1.setText("Pick Date");
+                                        t1.setText("Set Time");
+                                        venue.setText("SELECT LOCATION");
 
                                     }
                                 }, new Consumer<Throwable>() {
