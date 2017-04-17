@@ -5,7 +5,14 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +40,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
+import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,9 +57,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.R.attr.author;
+import static android.R.attr.data;
 import static android.app.Activity.RESULT_OK;
 
+import static com.example.owner.mapproject.R.id.add_image;
 import static com.example.owner.mapproject.R.id.d1;
+import static com.example.owner.mapproject.R.id.event_image;
 import static com.example.owner.mapproject.R.id.map;
 import static com.example.owner.mapproject.R.id.t1;
 import static com.example.owner.mapproject.R.id.title;
@@ -54,12 +70,14 @@ import static com.example.owner.mapproject.R.id.title;
 
 public class Create_Event extends Fragment{
     View myView;
-    Button b1,d1,t1;
+    Button b1,d1,t1,add_image;
     EditText title, des;
     TextView venue;
+    ImageView im_event;
     private com.example.owner.mapproject.retrofit.Map map;
     private CompositeDisposable mCompositeDisposable;
     private int PLACE_PICKER_REQUEST=999;
+    private static int RESULT_LOAD_IMAGE = 1;
     SharedPreferences sharedpreferences;
   //  private DatabaseReference database;
 
@@ -96,6 +114,8 @@ public class Create_Event extends Fragment{
         des= (EditText) myView.findViewById(R.id.e_des);
         d1=(Button)myView.findViewById(R.id.d1);
         t1=(Button)myView.findViewById(R.id.t1);
+        add_image = (Button)myView.findViewById(R.id.add_image);
+        im_event =(ImageView)myView.findViewById(R.id.event_image);
 
 
         venue.setOnClickListener(new View.OnClickListener() {
@@ -168,14 +188,26 @@ public class Create_Event extends Fragment{
 
             }
         });
+
+        add_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
         return myView;
     }
    private Boolean userss;
 
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //checkPermissionOnActivityResult(requestCode, resultCode, data);
+
+
+      //  checkPermissionOnActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
                     Place place = PlacePicker.getPlace(this.getActivity(), data);
@@ -185,8 +217,28 @@ public class Create_Event extends Fragment{
                     place_name=place.getName();
                     latitude = place.getLatLng().latitude;
                     longitude = place.getLatLng().longitude;
+    }
+       /* if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-        }
+            Cursor cursor = getActivity().getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+           ImageView im_event= (ImageView)myView.findViewById(R.id.event_image);
+            ImageView i;
+            i = (ImageView) myView.findViewById(R.id.imagetest);
+            i.setImageURI(selectedImage);
+            //im_event.setImageURI(selectedImage);
+
+        } */
+
+
+
 
     }
     private CharSequence place_name;
@@ -198,6 +250,5 @@ public class Create_Event extends Fragment{
         inflator.inflate(R.menu.activity_nav_main_drawer, menu);
 
     }*/
-
 
 }
