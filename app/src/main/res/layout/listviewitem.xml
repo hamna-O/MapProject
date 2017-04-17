@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textSize="16dp"
-            android:text="dsfg"/>
+            android:text="10:30 AM"/>
     </LinearLayout>
 
 </LinearLayout>
