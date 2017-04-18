@@ -3,7 +3,11 @@ package com.example.owner.mapproject;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -15,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -138,6 +143,8 @@ public class NavMain extends AppCompatActivity
 
         if (resultCode == RESULT_OK) {
             place = PlacePicker.getPlace(this, data);
+
+
             if(mapFragment!=null) {
                 ((MapsHomeFragment)mapFragment).passLocation(place.getLatLng());
                 MenuItem item = menu.findItem(selected);
@@ -153,7 +160,7 @@ public class NavMain extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        //android.app.FragmentManager fragmentManager = getFragmentManager();
+      //  android.app.FragmentManager fragmentManager = getFragmentManager();
 
         if (id == R.id.nav_create_event || id == -1) {
             fragmentManager.beginTransaction().replace(R.id.content_frame,new Create_Event()).commit();
