@@ -1,5 +1,6 @@
 package com.example.owner.mapproject;
 
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
@@ -58,6 +60,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.R.attr.author;
 import static android.R.attr.data;
+import static android.R.attr.fragment;
 import static android.app.Activity.RESULT_OK;
 
 import static com.example.owner.mapproject.R.id.add_image;
@@ -66,6 +69,7 @@ import static com.example.owner.mapproject.R.id.event_image;
 import static com.example.owner.mapproject.R.id.map;
 import static com.example.owner.mapproject.R.id.t1;
 import static com.example.owner.mapproject.R.id.title;
+import static com.google.android.gms.wearable.DataMap.TAG;
 
 
 public class Create_Event extends Fragment{
@@ -108,14 +112,13 @@ public class Create_Event extends Fragment{
         myView=inflater.inflate(R.layout.create_event,container,false);
         b1= (Button) myView.findViewById(R.id.button);
         title= (EditText) myView.findViewById(R.id.e_title);
-       // date= (EditText) myView.findViewById(R.id.e_date);
-       // time= (EditText) myView.findViewById(R.id.e_time);
         venue= (TextView) myView.findViewById(R.id.e_venue);
         des= (EditText) myView.findViewById(R.id.e_des);
         d1=(Button)myView.findViewById(R.id.d1);
         t1=(Button)myView.findViewById(R.id.t1);
         add_image = (Button)myView.findViewById(R.id.add_image);
         im_event =(ImageView)myView.findViewById(R.id.event_image);
+
 
 
         venue.setOnClickListener(new View.OnClickListener() {
@@ -193,6 +196,10 @@ public class Create_Event extends Fragment{
             @Override
             public void onClick(View view) {
 
+                Intent i = new Intent(
+                        Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                startActivityForResult(i,RESULT_LOAD_IMAGE);
 
             }
         });
@@ -203,11 +210,10 @@ public class Create_Event extends Fragment{
 
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public  void onActivityResult(int requestCode, int resultCode, Intent data) {
+       super.onActivityResult(requestCode, resultCode, data);
 
-
-      //  checkPermissionOnActivityResult(requestCode, resultCode, data);
+        //checkPermissionOnActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
                     Place place = PlacePicker.getPlace(this.getActivity(), data);
@@ -218,6 +224,23 @@ public class Create_Event extends Fragment{
                     latitude = place.getLatLng().latitude;
                     longitude = place.getLatLng().longitude;
     }
+
+     /*   if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+            Cursor cursor = getActivity().getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+            ImageView imageView = (ImageView) myView.findViewById(R.id.event_image);
+            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+
+        } */
        /* if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
             Uri selectedImage = data.getData();
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
@@ -250,5 +273,6 @@ public class Create_Event extends Fragment{
         inflator.inflate(R.menu.activity_nav_main_drawer, menu);
 
     }*/
+
 
 }
