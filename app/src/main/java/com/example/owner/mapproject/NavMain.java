@@ -82,9 +82,7 @@ public class NavMain extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    public void EventDetailLoad(){
-        fragmentManager.beginTransaction().replace(R.id.content_frame,new EventDetails()).commit();
-    }
+
 
 
 

@@ -2,6 +2,8 @@ package com.example.owner.mapproject;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
@@ -10,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,8 @@ import android.Manifest;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.owner.mapproject.Models.User;
+import com.example.owner.mapproject.retrofit.Map;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -30,10 +35,23 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
+import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MapsHomeFragment extends Fragment implements OnMapReadyCallback,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
+
+    private CompositeDisposable mCompositeDisposible;
+    private Map map;
 
     private  GoogleMap mMap;
     private Marker m;
@@ -47,6 +65,16 @@ public class MapsHomeFragment extends Fragment implements OnMapReadyCallback,Goo
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mCompositeDisposible = new CompositeDisposable();
+
+        map = new Retrofit
+                .Builder()
+                .baseUrl("http://map.ssabeer.com/v1/")
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(Map.class);
+
         return inflater.inflate(R.layout.fragment_maps_home, container,false);
     }
 
@@ -69,7 +97,24 @@ public class MapsHomeFragment extends Fragment implements OnMapReadyCallback,Goo
 
 
 
-
+    private void getNearbyEvents() {
+        mCompositeDisposible.add(
+                map.getLocalEvents("10.8877458", "76.0737859999999")
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io())
+                        .subscribe(new Consumer<List<Event>>() {
+                            @Override
+                            public void accept(List<Event> events) throws Exception {
+                                Toast.makeText(getActivity(), "Successfully loaded events. " + events.size(), Toast.LENGTH_SHORT).show();
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                Toast.makeText(getActivity(), "Failed to load events." + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                                Log.d("Error", throwable.getMessage());
+                            }
+                        }));
+    }
 
 
     @Override

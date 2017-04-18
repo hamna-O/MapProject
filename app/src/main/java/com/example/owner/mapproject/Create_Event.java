@@ -143,7 +143,7 @@ public class Create_Event extends Fragment{
                 String id = sp.getString("ID", "");
                 // getString(user, userss._id)
                 mCompositeDisposable.add(
-                        map.addEvent(new Event_model("jshd67-sjdsj7-sdj78-jdj78", Title, Date, Time, Des, place_name, latitude,  longitude))
+                        map.addEvent(new Event_model(id, Title, Date, Time, Des, place_name, latitude,  longitude))
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribeOn(Schedulers.io())
                                 .subscribe(new Consumer<Boolean>() {
