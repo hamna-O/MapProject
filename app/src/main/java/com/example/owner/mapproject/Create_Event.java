@@ -215,7 +215,7 @@ public class Create_Event extends Fragment{
 
         //checkPermissionOnActivityResult(requestCode, resultCode, data);
 
-     /*   if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
                     Place place = PlacePicker.getPlace(this.getActivity(), data);
                     String placeName = String.format("%s", place.getName());
                     venue.setText(placeName);
@@ -223,9 +223,9 @@ public class Create_Event extends Fragment{
                     place_name=place.getName();
                     latitude = place.getLatLng().latitude;
                     longitude = place.getLatLng().longitude;
-    }*/
+    }
 
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+     /*   if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
 
             Uri selectedImage = data.getData();
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
@@ -240,7 +240,7 @@ public class Create_Event extends Fragment{
             ImageView imageView = (ImageView) myView.findViewById(R.id.event_image);
             imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
 
-        }
+        } */
        /* if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
             Uri selectedImage = data.getData();
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
